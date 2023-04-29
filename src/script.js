@@ -73,6 +73,7 @@ function createCocktailElement(cocktail) {
     cocktailCardBody.appendChild(cocktailTitle);
     cocktailCard.appendChild(cocktailImage);
     cocktailCard.appendChild(cocktailCardBody);
+
     cocktailCard.addEventListener('click', function() {
         popUp(cocktail);
     });
@@ -118,15 +119,26 @@ function popUp(cocktail) {
     const modalBody = document.createElement('div');
     modalBody.classList.add('modal-body');
 
-    const cocktailImage = document.createElement('img');
-    cocktailImage.classList.add('img-fluid');
-    cocktailImage.setAttribute('src', cocktail.strDrinkThumb);
-    cocktailImage.setAttribute('alt', cocktail.strDrink);
+    const ingredientsList = document.createElement('ul');
+    for (let i = 1; i <= 15; i++) {
+        const ingredient = cocktail['strIngredient' + i];
+        const measure = cocktail['strMeasure' + i];
+        if (ingredient !== null && ingredient !== '') {
+            const listItem = document.createElement('li');
+            const img = document.createElement('img');
+            img.src = `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png`;
+            img.alt = ingredient;
+            img.width = 20;
+            listItem.appendChild(img);
+            listItem.appendChild(document.createTextNode(` ${measure} ${ingredient}`));
+            ingredientsList.appendChild(listItem);
+        }
+    }
 
     const cocktailInstructions = document.createElement('p');
     cocktailInstructions.textContent = cocktail.strInstructions;
 
-    modalBody.appendChild(cocktailImage);
+    modalBody.appendChild(ingredientsList);
     modalBody.appendChild(cocktailInstructions);
 
     modalContent.appendChild(modalHeader);
@@ -147,5 +159,6 @@ function popUp(cocktail) {
         modal.parentNode.removeChild(modal);
     }
 }
+
 
 
