@@ -12,26 +12,34 @@ async function searchHandler(e) {
 }
 
 async function searchCocktails(searchTerm) {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`);
-    const data = await response.json();
-    if (data.drinks) {
-        resultsContainer.innerHTML = '<h1>Results by name: </h1>';
-        displayCocktails(data.drinks,resultsContainer);
-    } else {
-        resultsContainer.innerHTML = 'No cocktails found with this name';
-    }
-    const ingResponse = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchTerm}`);
-    const ingData = await ingResponse.json();
-    if (ingData.drinks) {
-        ingContainer.innerHTML = '<h1>Results by ingredient: </h1>';
-        displayCocktails(ingData.drinks, ingContainer);
-    } else {
-        ingContainer.innerHTML = 'No cocktails found with this ingredient';
+    try {
+        const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`);
+        const data = await response.json();
+        if (data.drinks) {
+            displayCocktails(data.drinks,resultsContainer, "Results by name: ");
+        } else {
+            displayCocktails([], resultsContainer, 'No cocktails found with this name');
+        }
+        const ingResponse = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchTerm}`);
+        const ingData = await ingResponse.json();
+        if (ingData.drinks) {
+            displayCocktails(ingData.drinks, ingContainer, "Results by ingredient: ");
+        } else {
+            displayCocktails([], ingContainer, 'No cocktails found with this ingredient');
+        }
+    } catch (error) {
+        console.log(error);
+        displayCocktails([], resultsContainer, 'No cocktails found with this name');
+        displayCocktails([], ingContainer, 'No cocktails found with this ingredient');
     }
 }
 
-function displayCocktails(cocktails, container) {
+function displayCocktails(cocktails, container, str) {
     container.innerHTML = '';
+    const header = document.createElement('h1');
+    header.textContent = str;
+    container.appendChild(header);
+
     const row = document.createElement('div');
     row.classList.add('row');
     cocktails.forEach(cocktail => {
@@ -43,6 +51,7 @@ function displayCocktails(cocktails, container) {
     });
     container.appendChild(row);
 }
+
 
 
 
