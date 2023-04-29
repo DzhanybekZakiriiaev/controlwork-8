@@ -16,7 +16,7 @@ async function searchCocktails(searchTerm) {
     const data = await response.json();
     if (data.drinks) {
         resultsContainer.innerHTML = '<h1>Results by name: </h1>';
-        displayCocktails(data.drinks);
+        displayCocktails(data.drinks,resultsContainer);
     } else {
         resultsContainer.innerHTML = 'No cocktails found with this name';
     }
@@ -24,34 +24,48 @@ async function searchCocktails(searchTerm) {
     const ingData = await ingResponse.json();
     if (ingData.drinks) {
         ingContainer.innerHTML = '<h1>Results by ingredient: </h1>';
-        displayCocktailsIng(ingData.drinks);
+        displayCocktails(ingData.drinks, ingContainer);
     } else {
         ingContainer.innerHTML = 'No cocktails found with this ingredient';
     }
 }
 
-function displayCocktailsIng(cocktails) {
-    ingContainer.innerHTML = '';
+function displayCocktails(cocktails, container) {
+    container.innerHTML = '';
+    const row = document.createElement('div');
+    row.classList.add('row');
     cocktails.forEach(cocktail => {
-        const cocktailElement = createCocktailElement(cocktail);
-        ingContainer.appendChild(cocktailElement);
+        const cocktailCard = createCocktailElement(cocktail);
+        const col = document.createElement('div');
+        col.classList.add('col-md-4', 'mb-4');
+        col.appendChild(cocktailCard);
+        row.appendChild(col);
     });
+    container.appendChild(row);
 }
 
-function displayCocktails(cocktails) {
-    resultsContainer.innerHTML = '';
-    cocktails.forEach(cocktail => {
-        const cocktailElement = createCocktailElement(cocktail);
-        resultsContainer.appendChild(cocktailElement);
-    });
-}
+
 
 function createCocktailElement(cocktail) {
-    const cocktailElement = document.createElement('div');
-    cocktailElement.classList.add('cocktail');
-    cocktailElement.innerHTML = `
-    <img src="${cocktail.strDrinkThumb}" alt="${cocktail.strDrink}">
-    <h2>${cocktail.strDrink}</h2>
-  `;
-    return cocktailElement;
+    const cocktailCard = document.createElement('div');
+    cocktailCard.classList.add('card');
+
+    const cocktailImage = document.createElement('img');
+    cocktailImage.classList.add('card-img-top');
+    cocktailImage.setAttribute('src', cocktail.strDrinkThumb);
+    cocktailImage.setAttribute('alt', cocktail.strDrink);
+
+    const cocktailCardBody = document.createElement('div');
+    cocktailCardBody.classList.add('card-body');
+
+    const cocktailTitle = document.createElement('h5');
+    cocktailTitle.classList.add('card-title');
+    cocktailTitle.textContent = cocktail.strDrink;
+
+    cocktailCardBody.appendChild(cocktailTitle);
+    cocktailCard.appendChild(cocktailImage);
+    cocktailCard.appendChild(cocktailCardBody);
+
+    return cocktailCard;
 }
+
