@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b90df84a-c646-4b98-9f2d-d713504780ce" name="Changes" comment="created project">
+    <list default="true" id="b90df84a-c646-4b98-9f2d-d713504780ce" name="Changes" comment="created basic html-page">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +51,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1682746206342</updated>
-      <workItem from="1682746207671" duration="327000" />
+      <workItem from="1682746207671" duration="1716000" />
     </task>
     <task id="LOCAL-00001" summary="created project">
       <created>1682746352341</created>
@@ -58,7 +60,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682746352341</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="created basic html-page">
+      <created>1682746785939</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1682746785939</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -77,6 +86,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created project" />
-    <option name="LAST_COMMIT_MESSAGE" value="created project" />
+    <MESSAGE value="created basic html-page" />
+    <option name="LAST_COMMIT_MESSAGE" value="created basic html-page" />
   </component>
 </project>
