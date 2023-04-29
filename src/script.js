@@ -70,56 +70,82 @@ function createCocktailElement(cocktail) {
     const cocktailTitle = document.createElement('h5');
     cocktailTitle.classList.add('card-title');
     cocktailTitle.textContent = cocktail.strDrink;
-
     cocktailCardBody.appendChild(cocktailTitle);
     cocktailCard.appendChild(cocktailImage);
     cocktailCard.appendChild(cocktailCardBody);
-
-    cocktailCard.addEventListener('click', () => {
+    cocktailCard.addEventListener('click', function() {
         popUp(cocktail);
     });
 
     return cocktailCard;
 }
 
+
 function popUp(cocktail) {
-    const popup = document.createElement('div');
-    popup.classList.add('detailed');
+    const modal = document.createElement('div');
+    modal.classList.add('modal', 'fade');
+    modal.setAttribute('tabindex', '-1');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-labelledby', 'modal-title');
+    modal.setAttribute('aria-hidden', 'true');
 
-    const detailedContent = document.createElement('div');
-    detailedContent.classList.add('detailed-content');
+    const modalDialog = document.createElement('div');
+    modalDialog.classList.add('modal-dialog');
+    modalDialog.setAttribute('role', 'document');
 
-    const detailedHeader = document.createElement('div');
-    detailedHeader.classList.add('detailed-header');
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+
+    const modalHeader = document.createElement('div');
+    modalHeader.classList.add('modal-header');
+
+    const modalTitle = document.createElement('h4');
+    modalTitle.classList.add('modal-title');
+    modalTitle.setAttribute('id', 'modal-title');
+    modalTitle.textContent = cocktail.strDrink;
 
     const closeButton = document.createElement('button');
     closeButton.classList.add('close');
-    closeButton.addEventListener('click', () => {
-        document.body.removeChild(popup);
-    });
+    closeButton.setAttribute('type', 'button');
+    closeButton.setAttribute('aria-label', 'Close');
+    closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+    closeButton.addEventListener('click', closePopUp);
 
-    const detailedTitle = document.createElement('h4');
-    detailedTitle.classList.add('detailed-title');
-    detailedContent.textContent = cocktail.strDrink;
 
-    detailedTitle.appendChild(closeButton);
-    detailedHeader.appendChild(detailedTitle);
-    detailedContent.appendChild(detailedHeader);
+    modalHeader.appendChild(modalTitle);
+    modalHeader.appendChild(closeButton);
 
-    const detailedBody = document.createElement('div');
-    detailedBody.classList.add('detailed-body');
+    const modalBody = document.createElement('div');
+    modalBody.classList.add('modal-body');
 
     const cocktailImage = document.createElement('img');
+    cocktailImage.classList.add('img-fluid');
     cocktailImage.setAttribute('src', cocktail.strDrinkThumb);
     cocktailImage.setAttribute('alt', cocktail.strDrink);
 
     const cocktailInstructions = document.createElement('p');
     cocktailInstructions.textContent = cocktail.strInstructions;
 
-    detailedBody.appendChild(cocktailImage);
-    detailedBody.appendChild(cocktailInstructions);
-    detailedContent.appendChild(detailedBody);
+    modalBody.appendChild(cocktailImage);
+    modalBody.appendChild(cocktailInstructions);
 
-    popup.appendChild(detailedContent);
-    document.body.appendChild(popup);
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+
+    modalDialog.appendChild(modalContent);
+
+    modal.appendChild(modalDialog);
+
+    document.body.appendChild(modal);
+
+    modal.classList.add('show');
+    modal.style.display = 'block';
+
+    function closePopUp() {
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+        modal.parentNode.removeChild(modal);
+    }
 }
+
+
