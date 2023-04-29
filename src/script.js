@@ -119,7 +119,6 @@ function popUp(cocktail, container) {
     closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
     closeButton.addEventListener('click', closePopUp);
 
-
     modalHeader.appendChild(modalTitle);
     modalHeader.appendChild(closeButton);
 
@@ -137,20 +136,18 @@ function popUp(cocktail, container) {
             if (ingredient !== null && ingredient !== '') {
                 img.src = `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png`;
                 img.alt = ingredient;
+                img.addEventListener('click', showIngredientInfo);
             }
             if (measure){
-                listItem.appendChild(document.createTextNode(`(${measure}) ${ingredient}`));
-            }
-            else {
-                listItem.appendChild(document.createTextNode(`${ingredient}`));
+                listItem.appendChild(document.createTextNode(`(${measure}) `));
             }
             if (img.src) {
-                listItem.insertBefore(img, listItem.childNodes[0]);
+                listItem.appendChild(img);
             }
+            listItem.appendChild(document.createTextNode(`${ingredient}`));
             ingredientsList.appendChild(listItem);
         }
     }
-
 
     const cocktailInstructions = document.createElement('p');
     cocktailInstructions.textContent = cocktail.strInstructions;
@@ -174,6 +171,85 @@ function popUp(cocktail, container) {
         modal.classList.remove('show');
         modal.style.display = 'none';
         modal.parentNode.removeChild(modal);
+    }
+
+    function showIngredientInfo(e) {
+        const ingredientName = e.target.alt;
+        const ingredientModal = document.createElement('div');
+        ingredientModal.classList.add('modal', 'fade');
+        ingredientModal.setAttribute('tabindex', '-1');
+        ingredientModal.setAttribute('role', 'dialog');
+        ingredientModal.setAttribute('aria-labelledby', 'modal-title');
+        ingredientModal.setAttribute('aria-hidden', 'true');
+
+        const ingredientDialog = document.createElement('div');
+        ingredientDialog.classList.add('modal-dialog');
+        ingredientDialog.setAttribute('role', 'document');
+
+        const ingredientContent = document.createElement('div');
+        ingredientContent.classList.add('modal-content');
+
+        const ingredientHeader = document.createElement('div');
+        ingredientHeader.classList.add('modal-header');
+
+        const ingredientTitle = document.createElement('h4');
+        ingredientTitle.classList.add('modal-title');
+        ingredientTitle.setAttribute('id', 'modal-title');
+        ingredientTitle.textContent = ingredientName;
+
+        const ingredientCloseButton = document.createElement('button');
+        ingredientCloseButton.classList.add('close');
+        ingredientCloseButton.setAttribute('type', 'button');
+        ingredientCloseButton.setAttribute('aria-label', 'Close');
+        ingredientCloseButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+        ingredientCloseButton.addEventListener('click', closeIngredientModal);
+
+        ingredientHeader.appendChild(ingredientTitle);
+        ingredientHeader.appendChild(ingredientCloseButton);
+
+        const ingredientBody = document.createElement('div');
+        ingredientBody.classList.add('modal-body');
+
+        const ingredientInfo = document.createElement('p');
+        ingredientInfo.textContent = 'Loading cocktail names...';
+
+        ingredientBody.appendChild(ingredientInfo);
+
+        ingredientContent.appendChild(ingredientHeader);
+        ingredientContent.appendChild(ingredientBody);
+
+        ingredientDialog.appendChild(ingredientContent);
+
+        ingredientModal.appendChild(ingredientDialog);
+
+        container.appendChild(ingredientModal);
+
+        ingredientModal.classList.add('show');
+        ingredientModal.style.display = 'block';
+
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredientName}`)
+            .then(response => response.json())
+            .then(data => {
+                const cocktails = data.drinks;
+                if (cocktails) {
+                    ingredientInfo.innerHTML = `
+                <ul>
+                    ${cocktails.map(cocktail => `<li>${cocktail.strDrink}</li>`).join('')}
+                </ul>
+                `;
+                } else {
+                    ingredientInfo.textContent = 'No cocktails found.';
+                }
+            })
+            .catch(error => {
+                ingredientInfo.textContent = 'Failed to load cocktail names.';
+            });
+
+        function closeIngredientModal() {
+            ingredientModal.classList.remove('show');
+            ingredientModal.style.display = 'none';
+            ingredientModal.parentNode.removeChild(ingredientModal);
+        }
     }
 }
 

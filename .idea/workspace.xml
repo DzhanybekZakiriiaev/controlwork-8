@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b90df84a-c646-4b98-9f2d-d713504780ce" name="Changes" comment="fixed search">
+    <list default="true" id="b90df84a-c646-4b98-9f2d-d713504780ce" name="Changes" comment="fixed a few issues">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/script.js" afterDir="false" />
     </list>
@@ -50,7 +50,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1682746206342</updated>
-      <workItem from="1682746207671" duration="10033000" />
+      <workItem from="1682746207671" duration="11007000" />
     </task>
     <task id="LOCAL-00001" summary="created project">
       <created>1682746352341</created>
@@ -122,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682762900632</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixed a few issues">
+      <created>1682764222303</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1682764222303</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,6 +157,7 @@
     <MESSAGE value="fixed popup close button" />
     <MESSAGE value="lists ingredients" />
     <MESSAGE value="fixed search" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed search" />
+    <MESSAGE value="fixed a few issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed a few issues" />
   </component>
 </project>
