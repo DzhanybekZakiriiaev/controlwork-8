@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b90df84a-c646-4b98-9f2d-d713504780ce" name="Changes" comment="fixed popup close button">
+    <list default="true" id="b90df84a-c646-4b98-9f2d-d713504780ce" name="Changes" comment="lists ingredients">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/page.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +50,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1682746206342</updated>
-      <workItem from="1682746207671" duration="7811000" />
+      <workItem from="1682746207671" duration="8560000" />
     </task>
     <task id="LOCAL-00001" summary="created project">
       <created>1682746352341</created>
@@ -109,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682761534235</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="lists ingredients">
+      <created>1682762088284</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1682762088284</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,6 +141,7 @@
     <MESSAGE value="added error handler" />
     <MESSAGE value="added new function for popup" />
     <MESSAGE value="fixed popup close button" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed popup close button" />
+    <MESSAGE value="lists ingredients" />
+    <option name="LAST_COMMIT_MESSAGE" value="lists ingredients" />
   </component>
 </project>

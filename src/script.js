@@ -15,24 +15,31 @@ async function searchCocktails(searchTerm) {
     try {
         const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`);
         const data = await response.json();
-        if (data.drinks) {
+        if (data && data.drinks) {
             displayCocktails(data.drinks,resultsContainer, "Results by name: ");
         } else {
             displayCocktails([], resultsContainer, 'No cocktails found with this name');
         }
+    } catch (error) {
+        console.log(error);
+        displayCocktails([], resultsContainer, 'No cocktails found with this name');
+    }
+
+    try {
         const ingResponse = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchTerm}`);
         const ingData = await ingResponse.json();
-        if (ingData.drinks) {
+        if (ingData && ingData.drinks) {
             displayCocktails(ingData.drinks, ingContainer, "Results by ingredient: ");
         } else {
             displayCocktails([], ingContainer, 'No cocktails found with this ingredient');
         }
     } catch (error) {
         console.log(error);
-        displayCocktails([], resultsContainer, 'No cocktails found with this name');
         displayCocktails([], ingContainer, 'No cocktails found with this ingredient');
     }
 }
+
+
 
 function displayCocktails(cocktails, container, str) {
     container.innerHTML = '';
@@ -130,7 +137,12 @@ function popUp(cocktail) {
             img.alt = ingredient;
             img.width = 20;
             listItem.appendChild(img);
-            listItem.appendChild(document.createTextNode(` ${measure} ${ingredient}`));
+            if (measure){
+                listItem.appendChild(document.createTextNode(`(${measure}) ${ingredient}`));
+            }
+            else {
+                listItem.appendChild(document.createTextNode(`${ingredient}`));
+            }
             ingredientsList.appendChild(listItem);
         }
     }
