@@ -75,6 +75,51 @@ function createCocktailElement(cocktail) {
     cocktailCard.appendChild(cocktailImage);
     cocktailCard.appendChild(cocktailCardBody);
 
+    cocktailCard.addEventListener('click', () => {
+        popUp(cocktail);
+    });
+
     return cocktailCard;
 }
 
+function popUp(cocktail) {
+    const popup = document.createElement('div');
+    popup.classList.add('detailed');
+
+    const detailedContent = document.createElement('div');
+    detailedContent.classList.add('detailed-content');
+
+    const detailedHeader = document.createElement('div');
+    detailedHeader.classList.add('detailed-header');
+
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('close');
+    closeButton.addEventListener('click', () => {
+        document.body.removeChild(popup);
+    });
+
+    const detailedTitle = document.createElement('h4');
+    detailedTitle.classList.add('detailed-title');
+    detailedContent.textContent = cocktail.strDrink;
+
+    detailedTitle.appendChild(closeButton);
+    detailedHeader.appendChild(detailedTitle);
+    detailedContent.appendChild(detailedHeader);
+
+    const detailedBody = document.createElement('div');
+    detailedBody.classList.add('detailed-body');
+
+    const cocktailImage = document.createElement('img');
+    cocktailImage.setAttribute('src', cocktail.strDrinkThumb);
+    cocktailImage.setAttribute('alt', cocktail.strDrink);
+
+    const cocktailInstructions = document.createElement('p');
+    cocktailInstructions.textContent = cocktail.strInstructions;
+
+    detailedBody.appendChild(cocktailImage);
+    detailedBody.appendChild(cocktailInstructions);
+    detailedContent.appendChild(detailedBody);
+
+    popup.appendChild(detailedContent);
+    document.body.appendChild(popup);
+}
