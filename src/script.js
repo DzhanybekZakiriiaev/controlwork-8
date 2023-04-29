@@ -211,7 +211,6 @@ function popUp(cocktail, container) {
         ingredientBody.classList.add('modal-body');
 
         const ingredientInfo = document.createElement('p');
-        ingredientInfo.textContent = 'Loading cocktail names...';
 
         ingredientBody.appendChild(ingredientInfo);
 
