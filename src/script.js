@@ -50,7 +50,7 @@ function displayCocktails(cocktails, container, str) {
     const row = document.createElement('div');
     row.classList.add('row');
     cocktails.forEach(cocktail => {
-        const cocktailCard = createCocktailElement(cocktail);
+        const cocktailCard = createCocktailElement(cocktail, container);
         const col = document.createElement('div');
         col.classList.add('col-md-4', 'mb-4');
         col.appendChild(cocktailCard);
@@ -62,7 +62,7 @@ function displayCocktails(cocktails, container, str) {
 
 
 
-function createCocktailElement(cocktail) {
+function createCocktailElement(cocktail, container) {
     const cocktailCard = document.createElement('div');
     cocktailCard.classList.add('card');
 
@@ -82,14 +82,14 @@ function createCocktailElement(cocktail) {
     cocktailCard.appendChild(cocktailCardBody);
 
     cocktailCard.addEventListener('click', function() {
-        popUp(cocktail);
+        popUp(cocktail, container);
     });
 
     return cocktailCard;
 }
 
 
-function popUp(cocktail) {
+function popUp(cocktail, container) {
     const modal = document.createElement('div');
     modal.classList.add('modal', 'fade');
     modal.setAttribute('tabindex', '-1');
@@ -130,22 +130,27 @@ function popUp(cocktail) {
     for (let i = 1; i <= 15; i++) {
         const ingredient = cocktail['strIngredient' + i];
         const measure = cocktail['strMeasure' + i];
-        if (ingredient !== null && ingredient !== '') {
+        if (ingredient) {
             const listItem = document.createElement('li');
             const img = document.createElement('img');
-            img.src = `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png`;
-            img.alt = ingredient;
             img.width = 20;
-            listItem.appendChild(img);
+            if (ingredient !== null && ingredient !== '') {
+                img.src = `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png`;
+                img.alt = ingredient;
+            }
             if (measure){
                 listItem.appendChild(document.createTextNode(`(${measure}) ${ingredient}`));
             }
             else {
                 listItem.appendChild(document.createTextNode(`${ingredient}`));
             }
+            if (img.src) {
+                listItem.insertBefore(img, listItem.childNodes[0]);
+            }
             ingredientsList.appendChild(listItem);
         }
     }
+
 
     const cocktailInstructions = document.createElement('p');
     cocktailInstructions.textContent = cocktail.strInstructions;
@@ -160,7 +165,7 @@ function popUp(cocktail) {
 
     modal.appendChild(modalDialog);
 
-    document.body.appendChild(modal);
+    container.appendChild(modal);
 
     modal.classList.add('show');
     modal.style.display = 'block';
